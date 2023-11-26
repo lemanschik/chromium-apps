@@ -17,3 +17,18 @@ familar with them.
 - if so use FileSystem Access API to install node give node
 
 https://download-chromium.appspot.com/ go to the url download and install chromium 
+
+
+## Applications Types
+
+### SPA Style data-url
+This is the most nativ and best expirence for most situations
+
+## https/file protocol real host / filesystem hybrid
+This is the most nativ and best expirence for local clients that interact with one or more remote resources regulary
+
+## https/file protocol fakeHost / fakeFileSystem 
+This is the most nativ and best expirence to offer a product ondemand and selfhosted but keep the data indipendent.
+
+## chromium-extension host
+This is the most Complex integration but allows varius other secenarios for edgecases where you want or need some more WebApi's or you want to code your own browser and so on.
