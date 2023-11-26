@@ -22,7 +22,7 @@ const launchConfigs = {
         '--rm',
         '-ti',
         `ghcr.io/puppeteer/puppeteer:latest`,
-        `/bin/bash -c /usr/bin/google-chrome`, // spawn tty for pipeSupport
+        `/bin/bash -c /usr/bin/google-chrome-stable`, // spawn tty for pipeSupport
         // end docker arguments
         ...Puppeteer._launcher.defaultArgs({ 
                 devtools: false, // devtools auto open needs headless false
