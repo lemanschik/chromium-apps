@@ -37,3 +37,63 @@ const launchConfigs = {
 }
 
 ```
+
+
+## Posix Playground
+
+# Puppeteer Server
+
+Dockerfile
+```
+```
+
+cmd.sh
+```
+#!/bin/bash
+
+mkfifo input
+mkfifo output
+
+google-chrome-stable --headless --remote-debugging-pipe 3<input 4>output
+
+# echo -en '{"id": 0, "method": "Target.getTargets"}\0' >input
+# cat output
+#{"id":0,"result":{"targetInfos":[]}}
+```
+
+
+docker run as daemon instruction
+```
+docker run -d dockerimages/google-chrome
+
+```
+
+docker api send get 
+```
+# Terminal 2
+docker exec instance_id -ti cat output
+
+# Terminal 1
+docker exec instance_id -ti echo -en '{"id": 0, "method": "Target.getTargets"}\0' >input
+```
+
+## pptr
+
+```js
+docker run -ti --init --cap-add=SYS_ADMIN --rm ghcr.io/puppeteer/puppeteer:latest /bin/bash -c "mkfifo input && mkfifo output && google-chrome-stable --headless --remote-debugging-pipe 3<input 4>output"
+```
+
+## Run a Single file test. from your host and exit
+```js
+docker run -ti --init --cap-add=SYS_ADMIN --rm ghcr.io/puppeteer/puppeteer:latest node -e "$(~/projects/pptr/tests/test.js)"
+```
+pipe dockerhost
+```
+docker run -i --init --cap-add=SYS_ADMIN --rm ghcr.io/puppeteer/puppeteer:latest /bin/bash -c "google-chrome-stable --headless --remote-debugging-pipe 3<&0 4>&1"
+
+docker attach <id> 0<input 1>output
+echo -en '{"id": 0, "method": "Target.getTargets"}\0' >input
+
+# docker attach can be used with Puppeteer.
+echo -en '{"id": 0, "method": "Target.getTargets"}\0' | docker attach <id>
+```
